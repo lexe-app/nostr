@@ -137,4 +137,4 @@ Learn more about `rust-nostr` at <https://rust-nostr.org>.
 
 ## License
 
-This project is distributed under the MIT software license - see the [LICENSE](LICENSE) file for details
+Please see LICENSE.md for license information.
