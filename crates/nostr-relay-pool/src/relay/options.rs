@@ -4,6 +4,7 @@
 
 //! Relay options
 
+use std::sync::Arc;
 use std::time::Duration;
 
 use async_wsocket::ConnectionMode;
@@ -266,13 +267,13 @@ impl SyncProgress {
 }
 
 /// Sync (negentropy reconciliation) options
-#[derive(Debug, Clone)]
+#[derive(Debug)]
 pub struct SyncOptions {
     pub(super) initial_timeout: Duration,
     pub(super) idle_timeout: Duration,
     pub(super) direction: SyncDirection,
     pub(super) dry_run: bool,
-    pub(super) progress: Option<Sender<SyncProgress>>,
+    pub(super) progress: Option<Arc<Sender<SyncProgress>>>,
 }
 
 impl Default for SyncOptions {
@@ -330,7 +331,7 @@ impl SyncOptions {
     ///
     /// Use [`SyncProgress::channel`] to create a watch channel and pass the sender here.
     #[inline]
-    pub fn progress(mut self, sender: Sender<SyncProgress>) -> Self {
+    pub fn progress(mut self, sender: Arc<Sender<SyncProgress>>) -> Self {
         self.progress = Some(sender);
         self
     }
